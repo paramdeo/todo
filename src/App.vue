@@ -12,25 +12,29 @@ const title = 'To-Do',
 
   newTodo = ref(''),
 
+  lastUpdated = ref(''),
+
   charLimit = 50,
 
   urgent = ref(false),
 
-  urgentIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-siren fs-4 float-end mt-1"><path d="M7 12a5 5 0 0 1 5-5v0a5 5 0 0 1 5 5v6H7v-6Z"/><path d="M5 20a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2H5v-2Z"/><path d="M21 12h1"/><path d="M18.5 4.5 18 5"/><path d="M2 12h1"/><path d="M12 2v1"/><path d="m4.929 4.929.707.707"/><path d="M12 12v6"/></svg>`,
+  deleteIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle fs-4 float-end mt-1"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>`,
 
-  addTodo = (urgency = false) => {
+  addTodo = () => {
     // if the item is empty, don't add to list
     if (newTodo.value) {
       todoList.value.unshift({
         id: id(),
         title: newTodo.value,
-        urgent: urgency
       })
-      // reset input text and urgency
+      // reset input text and time
       newTodo.value = ''
-      urgent.value = false
       updateTimestamp(Date.now())
     }
+  },
+
+  deleteTodo = (todoID) => {
+    todoList.value = todoList.value.filter(todo => todo.id !== todoID)
   },
 
   clearTodos = () => {
@@ -48,8 +52,6 @@ const title = 'To-Do',
     todoList.value = JSON.parse(localStorage.getItem('todos'))
   },
 
-  lastUpdated = ref(''),
-
   updateTimestamp = () => {
     let timestamp = new Date(Date.now())
     lastUpdated.value = timestamp.toLocaleDateString() + ' @ ' + timestamp.getHours() + ':' + (timestamp.getMinutes() < 10 ? '0' + timestamp.getMinutes().toString() : timestamp.getMinutes())
@@ -63,11 +65,11 @@ const title = 'To-Do',
       <div class="card mb-5">
         <ul class="list-group list-group-flush">
           <li class="list-group-item fs-4 text-muted disabled" v-if="!todoList.length">No items yet.</li>
-          <li class="list-group-item fs-4" v-for="todo in todoList" :key="todo.id">{{ todo.title }} <span v-if="todo.urgent" v-html="urgentIcon"></span></li>
+          <li class="list-group-item fs-4" v-for="todo in todoList" :key="todo.id">{{ todo.title }} <span v-on:click="deleteTodo(todo.id)" v-html="deleteIcon" style="cursor: pointer"></span></li>
         </ul>
         <div v-if="lastUpdated" class="card-footer text-end">Last updated {{ lastUpdated || '' }}</div>
       </div>
-      <hr/>
+      <div class="bg-light py-1 mb-3"></div>
     </div>
   </div>
 
@@ -75,29 +77,24 @@ const title = 'To-Do',
 
     <div class="mb-3">
 
-      <form v-on:submit.prevent="addTodo(urgent)">
+      <form v-on:submit.prevent="addTodo">
 
         <div class="input-group input-group-lg my-3">
-          <input type="text" class="form-control form-control-lg" placeholder="Add new todo item" v-model.trim="newTodo"
+          <input type="text" class="form-control form-control-lg" placeholder="Add todo..." v-model.trim="newTodo"
             v-bind:maxlength="charLimit" autofocus>
-          <div class="input-group-text">
-            <input class="form-check-input mt-0" type="checkbox" id="checkboxUrgent" v-model="urgent">
-            <label class="form-check-label fs-6 text-uppercase fw-bold" for="checkboxUrgent">&ensp;Urgent</label>
-          </div>
-
           <span class="input-group-text">{{ newTodo.length }}/{{ charLimit }}</span>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100" v-bind:disabled="!newTodo">Add Item</button>
+        <button type="submit" class="btn btn-primary w-100 fs-5" v-bind:disabled="!newTodo">Add Todo</button>
       </form>
 
     </div>
 
     <div class="d-flex justify-content-evenly">
 
-      <button class="btn btn-danger w-100 me-2" v-on:click="clearTodos" v-if="todoList.length">Clear List</button>
-      <button class="btn btn-success w-100 me-2" v-on:click="saveTodos">Save Todos</button>
-      <button class="btn btn-dark w-100" v-on:click="loadTodos">Load Todos</button>
+      <button class="btn btn-danger w-100 me-2 fs-5" v-on:click="clearTodos" v-if="todoList.length">Clear Todos</button>
+      <button class="btn btn-success w-100 me-2 fs-5" v-on:click="saveTodos">Save Todos</button>
+      <button class="btn btn-dark w-100 fs-5" v-on:click="loadTodos">Load Todos</button>
 
     </div>
 
