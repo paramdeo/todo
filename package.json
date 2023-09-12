@@ -3,15 +3,20 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "sass": "sass src/style.scss public/style.css --no-source-map",
+    "purgecss": "purgecss --css public/style.css --content src/*.vue --output public/style.min.css",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "bootstrap": "^5.3.1",
     "vue": "^3.3.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.1",
+    "purgecss": "^5.0.0",
+    "sass": "^1.66.1",
     "vite": "^4.4.9"
   }
 }

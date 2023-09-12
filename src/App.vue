@@ -106,10 +106,17 @@ const title = 'To-Do',
     <div class="d-flex justify-content-evenly">
 
       <button class="btn btn-danger w-100 me-2 fs-5" v-on:click="clearTodos" v-if="todoList.length">Clear Todos</button>
-      <button class="btn btn-success w-100 me-2 fs-5" v-on:click="saveTodos">Save Todos</button>
-      <button class="btn btn-dark w-100 fs-5" v-on:click="loadTodos">Load Todos</button>
+      <button class="btn btn-info w-100 me-2 fs-5" v-on:click="saveTodos">Save Todos</button>
+      <button class="btn btn-success w-100 fs-5" v-on:click="loadTodos">Load Todos</button>
 
     </div>
 
   </div>
+
+  <div class="row pt-3">
+    <div class="col text-center">
+      <p>Copyright &copy; <a href="https://paramdeo.com" target="_blank" rel="noopener">Paramdeo Singh</a> <strong>&middot;</strong> <a href="https://github.com/paramdeo/todo" target="_blank" rel="noopener">Source</a></p>
+    </div>
+  </div>
+
 </template>
