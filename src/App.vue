@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 
+import SEO from '@components/SEO.vue'
+
 function id() {
   // all we really need is the first 8 chars for a unique ID, not the entire UUID
   return crypto.randomUUID().slice(0, 8)
@@ -34,6 +36,10 @@ const title = 'To-Do',
   },
 
   deleteTodo = (todoID) => {
+    // if there's only one item left, also nuke the updated time
+    if (todoList.value.length === 1) {
+      lastUpdated.value = ''
+    }
     todoList.value = todoList.value.filter(todo => todo.id !== todoID)
   },
 
@@ -59,6 +65,13 @@ const title = 'To-Do',
 </script>
 
 <template>
+
+  <SEO 
+  title="To-Do"
+  description="A simple To-Do app."
+  url="https://todo.paramdeo.com"
+  og="/og.png"/>
+
   <div class="row mt-5">
     <div class="col">
       <h1 class="mb-3">{{ title }}</h1>
