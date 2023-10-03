@@ -66,7 +66,7 @@
   --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --bs-body-font-family: var(--bs-font-sans-serif);
+  --bs-body-font-family: "Prompt", serif;
   --bs-body-font-size: 1.1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
@@ -91,6 +91,7 @@
   --bs-link-hover-color: #1ab3b3;
   --bs-link-hover-color-rgb: 26, 179, 179;
   --bs-code-color: #d63384;
+  --bs-highlight-color: #0a0a0a;
   --bs-highlight-bg: #fff3cd;
   --bs-border-width: 1px;
   --bs-border-style: solid;
@@ -839,6 +840,10 @@ button:not(:disabled),
 
 *::-webkit-scrollbar-thumb {
   background: #0a0a0a;
+}
+
+#app {
+  font-family: "Prompt", serif;
 }
 
 a {

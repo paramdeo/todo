@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "sass": "sass src/style.scss public/style.css --no-source-map",
-    "purgecss": "purgecss --css public/style.css --content src/*.vue --output public/style.min.css",
+    "purgecss": "purgecss --css public/style.css --safelist app --content src/*.vue --output public/style.min.css",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "bootstrap": "^5.3.1",
+    "@fontsource/prompt": "^5.0.9",
+    "bootstrap": "^5.3.2",
     "vue": "^3.3.4"
   },
   "devDependencies": {

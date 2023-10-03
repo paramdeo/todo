@@ -1,3 +1,5 @@
+$font-family-base: 'Prompt', serif;
+
 $body-bg: #ffffff;
 $body-color: #0a0a0a;
 
@@ -103,6 +105,10 @@ width: 5px;
 
 *::-webkit-scrollbar-thumb { // Chrome, Safari
 background: $body-color;
+}
+
+#app {
+  font-family: $font-family-base;
 }
 
 a {
